@@ -5,53 +5,75 @@
 <title>Valentine</title>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #ffe6f0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-    }
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #ffe6f0;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
 
-    h1 {
-        font-size: 40px;
-        color: #ff4d88;
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
-    .buttons {
-        margin-top: 30px;
-        position: relative;
-    }
+h1 {
+    font-size: 40px;
+    color: #ff4d88;
+}
 
-    button {
-        font-size: 20px;
-        padding: 12px 25px;
-        margin: 10px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-    }
+.buttons {
+    margin-top: 30px;
+}
 
-    #yes {
-        background-color: #ff4d88;
-        color: white;
-    }
+button {
+    font-size: 20px;
+    padding: 12px 25px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
 
-    #no {
-        background-color: #cccccc;
-        position: absolute;
-    }
+#yes {
+    background-color: #ff4d88;
+    color: white;
+}
 
-    #message {
-        margin-top: 30px;
-        font-size: 28px;
-        color: #ff4d88;
-        display: none;
+#no {
+    background-color: #cccccc;
+    position: fixed;
+    transition: 0.15s;
+}
+
+#message {
+    margin-top: 30px;
+    font-size: 28px;
+    color: #ff4d88;
+    display: none;
+}
+
+/* ❤️ Animation coeurs */
+
+.heart {
+    position: fixed;
+    font-size: 30px;
+    animation: fall 2s linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
     }
+    100% {
+        transform: translateY(300px) scale(1.5);
+        opacity: 0;
+    }
+}
+
 </style>
 </head>
 
@@ -64,24 +86,57 @@
     <button id="no">No</button>
 </div>
 
-<div id="message">YAYYYYY ❤️🥰</div>
+<div id="message">YAYYYY ❤️🥰</div>
 
 <script>
+
 const noButton = document.getElementById("no");
 const yesButton = document.getElementById("yes");
 const message = document.getElementById("message");
 
-noButton.addEventListener("mouseover", () => {
-    const x = Math.random() * (window.innerWidth - 100);
-    const y = Math.random() * (window.innerHeight - 50);
+/* ❌ Bouton NON qui fuit la souris */
 
-    noButton.style.left = x + "px";
-    noButton.style.top = y + "px";
+document.addEventListener("mousemove", (e) => {
+
+    const rect = noButton.getBoundingClientRect();
+
+    const distanceX = Math.abs(e.clientX - (rect.left + rect.width / 2));
+    const distanceY = Math.abs(e.clientY - (rect.top + rect.height / 2));
+
+    if (distanceX < 120 && distanceY < 80) {
+
+        const newX = Math.random() * (window.innerWidth - rect.width);
+        const newY = Math.random() * (window.innerHeight - rect.height);
+
+        noButton.style.left = newX + "px";
+        noButton.style.top = newY + "px";
+    }
 });
+
+
+/* ❤️ Explosion de coeurs quand YES */
 
 yesButton.addEventListener("click", () => {
+
     message.style.display = "block";
+
+    for (let i = 0; i < 40; i++) {
+
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = Math.random() * window.innerHeight + "px";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 2000);
+    }
 });
+
 </script>
 
 </body>
