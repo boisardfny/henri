@@ -24,15 +24,16 @@ h1 {
     color: #ff4d88;
 }
 
-/* Conteneur du bouton YES (centré) */
+/* Conteneur centré pour les deux boutons */
 .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    gap: 40px; /* espace entre YES et NO */
+    position: relative;
 }
 
-/* Boutons */
+/* Style des boutons */
 button {
     font-size: 20px;
     padding: 12px 25px;
@@ -46,10 +47,10 @@ button {
     color: white;
 }
 
-/* Bouton NO : sera placé en JS à côté du YES */
+/* Le bouton NO sera déplacé ensuite */
 #no {
     background-color: #cccccc;
-    position: fixed;
+    position: absolute; /* important */
     transition: 0.15s;
 }
 
@@ -79,29 +80,24 @@ button {
 
 <h1>Do you want to be my Valentine? ❤️</h1>
 
+<!-- YES et NO centrés -->
 <div class="buttons">
     <button id="yes">Yes</button>
+    <button id="no">No</button>
 </div>
-
-<button id="no">No</button>
 
 <div id="message">YAYYYY ❤️🥰</div>
 
 <script>
 const noButton = document.getElementById("no");
 const yesButton = document.getElementById("yes");
-const message = document.getElementById("message");
 
-/* Positionner le bouton NO au départ, aligné sur la même ligne que YES */
+/* Positionner NO à droite de YES au départ */
 window.addEventListener("load", () => {
     const rectYes = yesButton.getBoundingClientRect();
 
-    // On place NO à droite de YES avec un petit écart
-    const startX = rectYes.right + 40;
-    const startY = rectYes.top;
-
-    noButton.style.left = startX + "px";
-    noButton.style.top = startY + "px";
+    noButton.style.left = rectYes.right + 40 + "px";  // 40px d'écart
+    noButton.style.top = rectYes.top + "px";
 });
 
 /* Bouton NON qui fuit */
