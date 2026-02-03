@@ -47,7 +47,7 @@ button {
     color: white;
 }
 
-/* Bouton NO : positionné au départ mais ne bouge pas tant que la souris n'est pas proche */
+/* Bouton NO : positionné au départ mais immobile tant que la souris est loin */
 #no {
     background-color: #cccccc;
     position: fixed;
@@ -125,7 +125,7 @@ document.addEventListener("mousemove", (e) => {
     }
 });
 
-/* ❤️ Explosion de coeurs */
+/* ❤️ Explosion de coeurs + redirection */
 yesButton.addEventListener("click", () => {
 
     const rect = yesButton.getBoundingClientRect();
@@ -150,6 +150,11 @@ yesButton.addEventListener("click", () => {
 
         setTimeout(() => heart.remove(), 1500);
     }
+
+    /* ⭐ Redirection après l'explosion */
+    setTimeout(() => {
+        window.location.href = "final.html";
+    }, 1500);
 });
 </script>
 
