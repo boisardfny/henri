@@ -25,14 +25,14 @@ h1 {
 }
 
 img {
-    max-width: 50%;  /* largeur maximale */
-    height: auto;    /* garde les proportions */
+    max-width: 50%;          /* largeur maximale 50% de l’écran */
+    height: auto;            /* garde les proportions */
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0,0,0,0.3);
     margin-bottom: 30px;
 }
 
-
+/* Coeurs qui explosent */
 .heart {
     position: fixed;
     font-size: 24px;
@@ -49,23 +49,24 @@ img {
 
 <body>
 
-<h1> YEAHHHHH ❤️</h1>
+<h1>Tu es mon Valentine ❤️</h1>
 
-<!-- Remplace le chemin de l'image par votre photo -->
 <img src="valentine/photo.jpg" alt="Nous" />
 
 <script>
-// Explosion continue de cœurs
+// Fonction pour créer un coeur
 function createHeart() {
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "❤️";
 
+    // départ au centre de l'écran
+    heart.style.left = window.innerWidth/2 + "px";
+    heart.style.top = window.innerHeight/2 + "px";
+
+    // déplacement aléatoire
     const x = (Math.random() - 0.5) * window.innerWidth + "px";
     const y = (Math.random() - 0.5) * window.innerHeight + "px";
-
-    heart.style.left = window.innerWidth/2 + "px"; // centre départ
-    heart.style.top = window.innerHeight/2 + "px";
 
     heart.style.setProperty("--x", x);
     heart.style.setProperty("--y", y);
@@ -75,7 +76,7 @@ function createHeart() {
     setTimeout(() => heart.remove(), 2000);
 }
 
-// Générer plusieurs cœurs toutes les 100ms
+// Générer des coeurs toutes les 100ms
 setInterval(createHeart, 100);
 </script>
 
