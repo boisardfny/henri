@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>❤️ Surprise Finale ❤️</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffe6f0;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    color: #ff4d88;
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+img {
+    max-width: 70%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    margin-bottom: 30px;
+}
+
+.heart {
+    position: fixed;
+    font-size: 24px;
+    pointer-events: none;
+    animation: explode 2s ease-out forwards;
+}
+
+@keyframes explode {
+    0% { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(2); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Tu es mon Valentine ❤️</h1>
+
+<!-- Remplace le chemin de l'image par votre photo -->
+<img src="votre_photo.jpg" alt="Nous" />
+
+<script>
+// Explosion continue de cœurs
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+
+    const x = (Math.random() - 0.5) * window.innerWidth + "px";
+    const y = (Math.random() - 0.5) * window.innerHeight + "px";
+
+    heart.style.left = window.innerWidth/2 + "px"; // centre départ
+    heart.style.top = window.innerHeight/2 + "px";
+
+    heart.style.setProperty("--x", x);
+    heart.style.setProperty("--y", y);
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 2000);
+}
+
+// Générer plusieurs cœurs toutes les 100ms
+setInterval(createHeart, 100);
+</script>
+
+</body>
+</html>
